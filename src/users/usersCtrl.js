@@ -24,12 +24,12 @@ export const usersCtrl = {
   },
 
   create: async (req, res) => {
-    const { name, email, password, groups } = req.body;
+    const { name, email, password, role } = req.body;
     const user = new UsersModel({
       name,
       email,
       password,
-      groups
+      role
     });
     try {
       const createdUser = await user.save();
