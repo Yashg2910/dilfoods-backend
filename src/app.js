@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import {init as initDb} from "./db/mongo.js";
 import { registerCtrl } from "./register/registerCtrl.js";
 import { registerHooks } from "./register/registerHooks.js";
@@ -12,13 +13,13 @@ import { ordersCtrl } from "./orders/ordersCtrl.js";
 import { ordersHooks } from "./orders/ordersHooks.js"
 
 const app = express();
-const PORT = 3000;
+const PORT = 3007;
 
 // initialize mongodb
 initDb();
 
 app.use(express.json());
-
+app.use(cors());
 app.post('/register', registerHooks, registerCtrl.create);
 app.post('/login', loginHooks, loginCtrl.create);
 
