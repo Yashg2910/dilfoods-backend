@@ -8,6 +8,8 @@ import { menuItemsCtrl } from "./menuItems/menuItemsCtrl.js";
 import { menuItemsHooks } from "./menuItems/menuItemsHooks.js";
 import { usersCtrl } from "./users/usersCtrl.js";
 import { usersHooks } from "./users/usersHooks.js";
+import { ordersCtrl } from "./orders/ordersCtrl.js";
+import { ordersHooks } from "./orders/ordersHooks.js"
 
 const app = express();
 const PORT = 3000;
@@ -33,6 +35,12 @@ app.get('/users/:id', usersHooks, usersCtrl.get);
 app.post('/users', usersHooks, usersCtrl.create);
 app.put('/users/:id', usersHooks, usersCtrl.update);
 app.delete('/users/:id', usersHooks, usersCtrl.remove);
+
+// Routes for orders
+app.get('/orders', ordersHooks, ordersCtrl.find);
+app.get('/orders/:id', ordersHooks, ordersCtrl.get);
+app.post('/orders', ordersHooks, ordersCtrl.create);
+app.put('/orders/:id', ordersHooks, ordersCtrl.update);
 
 // Start the server
 app.listen(PORT, () => {
