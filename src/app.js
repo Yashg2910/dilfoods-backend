@@ -1,8 +1,12 @@
 import express from "express";
 import {authenticateToken} from "./authentication/authenticationMiddleware.js";
+import {init as initDb} from "./db/mongo.js";
 
 const app = express();
 const PORT = 3000;
+
+// initialize mongodb
+initDb();
 
 app.use(express.json());
 
