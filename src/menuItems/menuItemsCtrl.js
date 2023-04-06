@@ -3,7 +3,7 @@ import { MenuItemsModel } from "./menuItemsModel.js";
 export const menuItemsCtrl = {
   find: async (req, res) => {
     try {
-      const menuItems = await MenuItemsModel.find();
+      const menuItems = await MenuItemsModel.find({...req.query});
       res.json(menuItems);
     } catch (err) {
       res.status(500).json({ message: err.message });
