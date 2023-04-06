@@ -18,7 +18,7 @@ export const loginCtrl = {
 
       const token = jwt.generateToken({ _id: user._id, name: user.name, role: user.groups }, '1h');
 
-      return res.json({ token });
+      return res.json({ _id: user._id, name: user.name, token });
     } catch (err) {
       console.error(err);
       res.status(500).json({ message: 'Internal server error' });
