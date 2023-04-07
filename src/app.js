@@ -43,6 +43,9 @@ app.get('/orders/:id', ordersHooks, ordersCtrl.get);
 app.post('/orders', ordersHooks, ordersCtrl.create);
 app.put('/orders/:id', ordersHooks, ordersCtrl.update);
 
+// Serve static uploaded files
+app.use('/uploads', express.static('uploads'));
+
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
