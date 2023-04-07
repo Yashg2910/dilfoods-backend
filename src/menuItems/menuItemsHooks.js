@@ -12,7 +12,6 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 export async function menuItemsHooks(req, res, next) {
-  console.log("REquest", req.method)
   if (req.method === "POST" || req.method === "post") {
     return upload.single('image')(req, res, (err) => {
       if (err) {
