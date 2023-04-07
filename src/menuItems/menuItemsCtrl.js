@@ -24,13 +24,14 @@ export const menuItemsCtrl = {
   },
 
   create: async (req, res) => {
-    const { name, description, price, category, imageUrl } = req.body;
+    const { name, description, price, category } = req.body;
+    const {filename} = req.file;
     const menuItem = new MenuItemsModel({
       name,
       description,
       price,
       category,
-      imageUrl
+      imageUrl: filename
     });
     try {
       const createdMenuItem = await menuItem.save();
