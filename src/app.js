@@ -10,7 +10,8 @@ import { menuItemsHooks } from "./menuItems/menuItemsHooks.js";
 import { usersCtrl } from "./users/usersCtrl.js";
 import { usersHooks } from "./users/usersHooks.js";
 import { ordersCtrl } from "./orders/ordersCtrl.js";
-import { ordersHooks } from "./orders/ordersHooks.js"
+import { ordersHooks } from "./orders/ordersHooks.js";
+import { initializeDb } from "./init/initializeScript.js"
 
 const app = express();
 const PORT = 3007;
@@ -50,3 +51,5 @@ app.use('/uploads', express.static('uploads'));
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 });
+
+initializeDb();
