@@ -24,7 +24,8 @@ export const ordersCtrl = {
   },
 
   create: async (req, res) => {
-    const { items, status, userId, totalPrice } = req.body;
+    const { items, userId, totalPrice } = req.body;
+    const status = "pending";
     const order = new OrdersModel({
       items,
       status,
