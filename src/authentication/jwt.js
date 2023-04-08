@@ -14,7 +14,7 @@ const jwtAuth = {
     try {
       payload = jwt.verify(token, secret);
     } catch (e) {
-      return res.status(403).json({status: 403, message: e});
+      return res.status(403).json({status: 403, message: "Invalid token"});
     }
     if (!allowedRoles.includes(payload.role)) {
       return res.status(403).json({status: 403, message: "Not allowed"});
