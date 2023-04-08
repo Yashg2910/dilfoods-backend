@@ -12,6 +12,8 @@ import { usersHooks } from "./users/usersHooks.js";
 import { ordersCtrl } from "./orders/ordersCtrl.js";
 import { ordersHooks } from "./orders/ordersHooks.js";
 import { initializeDb } from "./init/initializeScript.js"
+import { myOrdersCtrl } from "./my/myOrdersCtrl.js";
+import { myOrdersHooks } from "./my/myOrdersHooks.js";
 
 const app = express();
 const PORT = 3007;
@@ -43,6 +45,8 @@ app.get('/orders', ordersHooks, ordersCtrl.find);
 app.get('/orders/:id', ordersHooks, ordersCtrl.get);
 app.post('/orders', ordersHooks, ordersCtrl.create);
 app.put('/orders/:id', ordersHooks, ordersCtrl.update);
+app.get('/my/orders', myOrdersHooks, myOrdersCtrl.find);
+
 
 // Serve static uploaded files
 app.use('/uploads', express.static('uploads'));
