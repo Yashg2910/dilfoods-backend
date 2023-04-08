@@ -1,4 +1,5 @@
 import { UsersModel } from "./usersModel.js";
+import bcrypt from "bcrypt";
 
 export const usersCtrl = {
   find: async (req, res) => {
@@ -25,12 +26,17 @@ export const usersCtrl = {
 
   create: async (req, res) => {
     const { name, email, password, role } = req.body;
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
     const user = new UsersModel({
       name,
       email,
-      password,
+      password: hashedPassword,
       role
     });
+
     try {
       const createdUser = await user.save();
       res.status(200).json(createdUser);
