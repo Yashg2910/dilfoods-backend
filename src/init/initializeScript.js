@@ -20,7 +20,13 @@ export async function initializeDb() {
     password: 'customer123',
     role: 'CUSTOMER'
   };
-  [adminUser, staffUser, customerUser].map(async (user) => {
+  const customerUser2 = {
+    name: 'customer-2',
+    email: 'customer2@dilfoods.com',
+    password: 'customer123',
+    role: 'CUSTOMER'
+  };
+  [adminUser, staffUser, customerUser, customerUser2].map(async (user) => {
     const existingUser = (await UsersModel.find({name: user.name}))[0];
     if (!existingUser) {
       const salt = await bcrypt.genSalt(10);
