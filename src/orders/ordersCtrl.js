@@ -1,10 +1,12 @@
 import { OrdersModel } from "./ordersModel.js";
+import {MenuItemsModel} from "../menuItems/menuItemsModel.js";
 
 export const ordersCtrl = {
   find: async (req, res) => {
     try {
       const orders = await OrdersModel.find({ ...req.query }).sort({createdAt: -1});
-      res.json(orders);
+      const populatedOrders = await populateOrderWithItems(orders);
+      res.json(populatedOrders);
     } catch (err) {
       res.status(500).json({ message: err.message });
     }
@@ -66,4 +68,18 @@ export const ordersCtrl = {
       return res.status(500).json({ message: err.message });
     }
   }
+}
+
+export async function populateOrderWithItems(orders) {
+  const newOrders = [];
+  for (const order of orders) {
+    const newItems = [];
+    for (const item of order.items) {
+      const menuItem = await MenuItemsModel.findById(item.menuItemId);
+      newItems.push(menuItem);
+    }
+    const newOrder = {totalPrice: order.totalPrice, items: newItems, _id: order._id, userId: order.userId, status: order.status, createdAt: order.createdAt};
+    newOrders.push(newOrder)
+  }
+  return newOrders
 }
