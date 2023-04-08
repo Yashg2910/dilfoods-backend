@@ -10,16 +10,16 @@ const jwtAuth = {
     if (!token) {
       return res.status(401).json({ status: 401, message: 'Unauthorized' });
     }
-  
-    jwt.verify(token, secret, (err, user) => {
-      if (err) {
-        return res.sendStatus(403);
-      }
-      if (!allowedRoles.includes[user.role]) {
-        return res.sendStatus(403);
-      }
-      req.user = user;
-    });
+    let payload;
+    try {
+      payload = jwt.verify(token, secret);
+    } catch (e) {
+      return res.status(403).json({status: 403, message: e});
+    }
+    if (!allowedRoles.includes(payload.role)) {
+      return res.status(403).json({status: 403, message: "Not allowed"});
+    }
+    req.user = payload;
   },
   generateToken: (payload, expiry) => {
     return jwt.sign(payload, secret, { expiresIn: expiry });
