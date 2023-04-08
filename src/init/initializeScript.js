@@ -24,7 +24,7 @@ export async function initializeDb() {
     if (!existingUser) {
       const modelUser = new UsersModel(user);
       const createdUser = await modelUser.save();
-      console.log("User createed", createdUser.name);
+      console.log("Created user:", createdUser.name);
     }
   })
 }
