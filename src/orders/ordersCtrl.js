@@ -36,11 +36,7 @@ export const ordersCtrl = {
       const createdOrder = await order.save();
       res.status(200).json(createdOrder);
     } catch (e) {
-      res.status(400).json({
-        success: false,
-        message: 'Error creating order',
-        error: e.message
-      });
+      res.status(400).json({message: e.message});
     }
   },
 
