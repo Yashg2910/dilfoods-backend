@@ -16,7 +16,7 @@ export const loginCtrl = {
         return res.status(401).json({ message: 'Invalid email or password' });
       }
 
-      const token = jwt.generateToken({ _id: user._id, name: user.name, role: user.groups }, '1h');
+      const token = jwt.generateToken({ _id: user._id, name: user.name, role: user.role }, '1h');
 
       return res.json({ user, token });
     } catch (err) {
