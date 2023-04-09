@@ -14,6 +14,8 @@ import { ordersHooks } from "./orders/ordersHooks.js";
 import { initializeDb } from "./init/initializeScript.js"
 import { myOrdersCtrl } from "./my/myOrdersCtrl.js";
 import { myOrdersHooks } from "./my/myOrdersHooks.js";
+import { sendOtpCtrl } from "./otp/sendOtpCtrl.js";
+import { verifyOtpCtrl } from "./otp/verifyOtpCtrl.js";
 
 const app = express();
 const PORT = 3007;
@@ -50,6 +52,10 @@ app.get('/my/orders', myOrdersHooks, myOrdersCtrl.find);
 
 // Serve static uploaded files
 app.use('/uploads', express.static('uploads'));
+
+// Otp routes
+app.use('/send-otp', sendOtpCtrl.create)
+app.use('/verify-otp', verifyOtpCtrl.create)
 
 // Start the server
 app.listen(PORT, () => {
