@@ -1,4 +1,6 @@
 import { UsersModel } from "../users/usersModel.js";
+import { MenuItemsModel } from "../menuItems/menuItemsModel.js";
+
 import bcrypt from "bcrypt";
 
 export async function initializeDb() {
@@ -42,5 +44,19 @@ export async function initializeDb() {
       const createdUser = await modelUser.save();
       console.log("Created user:", createdUser.name);
     }
-  })
+  });
+
+  const menuItemData = {
+    name: "Test item 1",
+    description: "Test item 1 description",
+    price: 100,
+    category: "snacks",
+    imageUrl: "dilfoods.jpg"
+  }
+
+  const existingItem = (await MenuItemsModel.find({name: menuItemData.name}))[0];
+  if (!existingItem) {
+    const menuItem = new MenuItemsModel(menuItemData);
+    const newItem = await menuItem.save();
+  }
 }
