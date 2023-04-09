@@ -51,7 +51,7 @@ export async function initializeDb() {
     description: "Test item 1 description",
     price: 100,
     category: "snacks",
-    imageUrl: "dilfoods.jpg"
+    imageUrl: "dilfoods.jpeg"
   }
 
   const existingItem = (await MenuItemsModel.find({name: menuItemData.name}))[0];
