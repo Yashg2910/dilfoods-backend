@@ -25,7 +25,7 @@ export const menuItemsCtrl = {
 
   create: async (req, res) => {
     const { name, description, price, category } = req.body;
-    const {filename} = req.file;
+    const filename = req.file?.filename;
     const menuItem = new MenuItemsModel({
       name,
       description,
