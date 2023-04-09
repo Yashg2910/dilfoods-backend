@@ -16,21 +16,27 @@ export const verifyOtpCtrl = {
             res.status(401).json({ message: 'OTP expired. Please try again.' });
             return;
           }
-          const salt = await bcrypt.genSalt(10);
-          const hashedPassword = await bcrypt.hash("password123", salt);
-          const user = {
-            name: `New Account user- ${Date.now()}`,
-            email: `newAccount-${Date.now()}@samplemail.com`,
-            phone,
-            password: hashedPassword,
-            role: "CUSTOMER"
+          
+          let user;
+          user = (await UsersModel.find({phone}))[0];
+          if (!user) {
+            const salt = await bcrypt.genSalt(10);
+            const hashedPassword = await bcrypt.hash("password123", salt);
+            const sampleUser = {
+              name: `New Account user- ${Date.now()}`,
+              email: `newAccount-${Date.now()}@samplemail.com`,
+              phone,
+              password: hashedPassword,
+              role: "CUSTOMER"
+            }
+            const newUser = UsersModel(sampleUser);
+            user = await newUser.save();
           }
-          const newUser = UsersModel(user);
-          const newlyCreatedUser = await newUser.save();
 
-          const token = jwt.generateToken({ _id: newlyCreatedUser._id, name: newlyCreatedUser.name, role: newlyCreatedUser.role }, '1h');
-          delete newlyCreatedUser.password;
-          res.status(200).json({ user: newlyCreatedUser, token, message: 'OTP verified successfully' });
+
+          const token = jwt.generateToken({ _id: user._id, name: user.name, role: user.role }, '1h');
+          delete user.password;
+          res.status(200).json({ user, token, message: 'OTP verified successfully' });
         } else {
           res.status(401).json({ message: 'Invalid OTP' });
         }
